@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class ClauseConstructor implements Consumer<String> {
+class ClauseConstructor implements Consumer<String> {
 
     private final List<String> keywords;
 
