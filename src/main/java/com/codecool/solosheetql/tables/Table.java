@@ -1,13 +1,12 @@
 package com.codecool.solosheetql.tables;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Table {
 
     private String name;
-    private Map<String, Integer> headers;
+    private List<String> headers;
     private List<List<String>> records;
 
     public String getName() {
@@ -18,11 +17,11 @@ public class Table {
         this.name = name;
     }
 
-    public Map<String, Integer> getHeaders() {
+    public List<String> getHeaders() {
         return headers;
     }
 
-    public void setHeaders(Map<String, Integer> headers) {
+    public void setHeaders(List<String> headers) {
         this.headers = headers;
     }
 
@@ -35,27 +34,19 @@ public class Table {
     }
 
     public String display(){
-        StringBuilder builder = new StringBuilder();
-        return builder
-                .append(headers.keySet().stream()
-                        .collect(Collectors.joining(" , ", "", "\n")))
-                .append(records.stream()
+        return headers.stream()
+                .collect(Collectors.joining(" , ", "", "\n")) +
+                records.stream()
                         .map(strings -> String.join(" , ", strings))
-                        .collect(Collectors.joining("\n"))
-                )
-                .toString();
+                        .collect(Collectors.joining("\n"));
     }
 
     public String displayHead(){
-        StringBuilder builder = new StringBuilder();
-        return builder
-                .append(headers.keySet().stream()
-                        .collect(Collectors.joining(" , ", "", "\n")))
-                .append(records.stream()
+        return headers.stream()
+                .collect(Collectors.joining(" , ", "", "\n")) +
+                records.stream()
                         .map(strings -> String.join(" , ", strings))
                         .limit(5)
-                        .collect(Collectors.joining("\n"))
-                )
-                .toString();
+                        .collect(Collectors.joining("\n"));
     }
 }

@@ -15,8 +15,8 @@ public class TablesController {
         this.tableLoader = tableLoader;
     }
 
-    public String getTable(String name){
+    public Table getTable(String name){
         String content = tableLoader.loadSpreadsheetContent(name);
-        return tableParser.parseTableFromContent(content);
+        return tableParser.parseTableFromContent(content, name);
     }
 }

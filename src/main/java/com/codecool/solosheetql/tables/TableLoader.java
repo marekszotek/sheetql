@@ -47,7 +47,7 @@ public class TableLoader {
 
     String loadSpreadsheetContent(String spreadsheetName) {
         try {
-            return String.join("\n", getSpreadsheetContent(spreadsheetName));
+            return String.join("\n", getSpreadsheetContent(spreadsheetName)).replaceAll("\\[|]", "");
         } catch (IOException | GeneralSecurityException e) {
             System.out.println("Cannot fetch the table " + spreadsheetName);
             e.printStackTrace();
