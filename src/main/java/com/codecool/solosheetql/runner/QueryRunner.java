@@ -32,7 +32,7 @@ public class QueryRunner {
         return priorities;
     }
 
-    Table getResultTableFromQuery(String query){
+    public Table getResultTableFromQuery(String query){
         List<Clause> clauses = queryParser.parseIntoClauses(query);
         clauses = sortClauses(clauses);
 
