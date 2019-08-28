@@ -41,7 +41,7 @@ public class GoogleSheetsLoader implements TableLoader {
     private TablesRepository tablesRepository;
 
     @Autowired
-    public GoogleSheetsLoader(TablesRepository tablesRepository) {
+    GoogleSheetsLoader(TablesRepository tablesRepository) {
         this.tablesRepository = tablesRepository;
     }
 
