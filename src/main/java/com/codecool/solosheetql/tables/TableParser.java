@@ -19,7 +19,7 @@ public class TableParser {
 
          table.setRecords(Arrays
                  .stream(Arrays.copyOfRange(contentLines, 1, contentLines.length))
-                 .map(s -> s.split(","))
+                 .map(s -> s.split(", "))
                  .map(Arrays::asList)
                  .collect(Collectors.toList()));
 
