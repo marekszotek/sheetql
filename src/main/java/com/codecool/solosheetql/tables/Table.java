@@ -2,6 +2,7 @@ package com.codecool.solosheetql.tables;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Table {
 
@@ -31,5 +32,30 @@ public class Table {
 
     public void setRecords(List<List<String>> records) {
         this.records = records;
+    }
+
+    public String display(){
+        StringBuilder builder = new StringBuilder();
+        return builder
+                .append(headers.keySet().stream()
+                        .collect(Collectors.joining(" , ", "", "\n")))
+                .append(records.stream()
+                        .map(strings -> String.join(" , ", strings))
+                        .collect(Collectors.joining("\n"))
+                )
+                .toString();
+    }
+
+    public String displayHead(){
+        StringBuilder builder = new StringBuilder();
+        return builder
+                .append(headers.keySet().stream()
+                        .collect(Collectors.joining(" , ", "", "\n")))
+                .append(records.stream()
+                        .map(strings -> String.join(" , ", strings))
+                        .limit(5)
+                        .collect(Collectors.joining("\n"))
+                )
+                .toString();
     }
 }
