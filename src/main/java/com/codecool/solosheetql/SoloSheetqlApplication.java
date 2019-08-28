@@ -10,4 +10,13 @@ public class SoloSheetqlApplication {
         SpringApplication.run(SoloSheetqlApplication.class, args);
     }
 
+//    @Bean
+//    public CommandLineRunner clr(ApplicationContext ctx) {
+//        return args -> {
+//            TablesController tablesController = ctx.getBean(TablesController.class);
+//            System.out.println(tablesController.getTable("table").display());
+//
+//        };
+//    }
+
 }
