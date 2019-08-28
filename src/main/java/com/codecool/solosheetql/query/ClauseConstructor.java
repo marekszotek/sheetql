@@ -1,5 +1,7 @@
 package com.codecool.solosheetql.query;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -11,7 +13,9 @@ class ClauseConstructor implements Consumer<String> {
     private List<Clause> readyClauses;
     private List<String> currentClauseWords;
 
-    public ClauseConstructor() {
+
+    @Autowired
+    ClauseConstructor() {
         readyClauses = new ArrayList<>();
         currentClauseWords = new ArrayList<>();
         this.keywords = loadKeywords();
