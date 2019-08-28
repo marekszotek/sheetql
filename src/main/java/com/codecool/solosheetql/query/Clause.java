@@ -4,6 +4,14 @@ public class Clause {
     private String keyword;
     private String request;
 
+    public Clause() {
+    }
+
+    public Clause(String keyword, String request) {
+        this.keyword = keyword;
+        this.request = request;
+    }
+
     public String getKeyword() {
         return keyword;
     }
