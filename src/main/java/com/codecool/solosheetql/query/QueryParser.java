@@ -11,7 +11,7 @@ public class QueryParser {
 
     ClauseValidator clauseValidator;
 
-    public QueryParser(ClauseValidator clauseValidator) {
+    QueryParser(ClauseValidator clauseValidator) {
         this.clauseValidator = clauseValidator;
     }
 
