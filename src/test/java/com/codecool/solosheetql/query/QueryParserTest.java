@@ -7,8 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class QueryParserTest {
@@ -28,9 +27,6 @@ class QueryParserTest {
 
         List<Clause> resultClauses = queryParser.parseIntoClauses(query);
 
-        assertThat(resultClauses, containsInAnyOrder(selectClause, fromClause, whereClause));
-
-
+        assertEquals(expectedClauses, resultClauses);
     }
-
 }
