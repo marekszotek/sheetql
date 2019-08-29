@@ -16,13 +16,11 @@ public class QueryParser {
     }
 
     public List<Clause> parseIntoClauses(String query){
-        List<Clause> clauses = Stream.of(query.replace(";", "").split("\\s"))
+        return Stream.of(query.replace(";", "").split("\\s"))
                 .collect(ClauseConstructor::new, ClauseConstructor::accept, ClauseConstructor::combine)
-                .getClauses();
-
-        return clauses.stream()
+                .getClauses()
+                .stream()
                 .map(clause -> clauseValidator.validate(clause))
                 .collect(Collectors.toList());
-
     }
 }

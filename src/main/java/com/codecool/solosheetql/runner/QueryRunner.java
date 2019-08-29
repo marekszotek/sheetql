@@ -32,15 +32,18 @@ public class QueryRunner {
         return priorities;
     }
 
-    public Table getResultTableFromQuery(String query){
+    public Table getResultTableFromQuery(String query) {
         List<Clause> clauses = queryParser.parseIntoClauses(query);
         clauses = sortClauses(clauses);
 
         Table identityTable = new Table();
 
         return clauses.stream()
-                .reduce(identityTable, ((table, clause) -> clauseExecutor.execute(clause, table)), (table, table2) -> table2);
+                .reduce(identityTable, ((table, clause) -> {
+                        return clauseExecutor.execute(clause, table);
+                }), (table, table2) -> table2);
     }
+
 
     private List<Clause> sortClauses(List<Clause> clauses) {
         return clauses.stream()

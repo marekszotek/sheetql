@@ -45,14 +45,12 @@ public class GoogleSheetsLoader implements TableLoader {
         this.tablesRepository = tablesRepository;
     }
 
-    public String loadSpreadsheetContent(String spreadsheetName) {
+    public String loadTableContent(String spreadsheetName) throws TableNotFoundException{
         try {
             return String.join("\n", getSpreadsheetContent(spreadsheetName)).replaceAll("\\[|]", "");
         } catch (IOException | GeneralSecurityException e) {
-            System.out.println("Cannot fetch the table " + spreadsheetName);
-            e.printStackTrace();
+            throw new TableNotFoundException("Cannot load google sheet by table name = " + spreadsheetName);
         }
-        return "";
     }
 
     /**
@@ -80,7 +78,7 @@ public class GoogleSheetsLoader implements TableLoader {
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 
-    private ValueRange getResponse(String spreadsheetName) throws IOException, GeneralSecurityException {
+    private ValueRange getResponse(String spreadsheetName) throws IOException, GeneralSecurityException, TableNotFoundException {
         String spreadsheetId = tablesRepository.getSpreadsheetId(spreadsheetName);
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         Sheets service = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
@@ -92,7 +90,7 @@ public class GoogleSheetsLoader implements TableLoader {
     }
 
 
-    private List<String> getSpreadsheetContent(String spreadsheetName) throws IOException, GeneralSecurityException {
+    private List<String> getSpreadsheetContent(String spreadsheetName) throws IOException, GeneralSecurityException, TableNotFoundException {
         List<List<Object>> values = getResponse(spreadsheetName).getValues();
         return values.stream()
                 .map(Object::toString)
