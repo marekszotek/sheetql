@@ -15,8 +15,13 @@ public class TablesController {
         this.tableLoader = tableLoader;
     }
 
-    public Table getTable(String name) throws TableNotFoundException {
-        String content = tableLoader.loadTableContent(name);
+    public Table getTable(String name) {
+        String content = null;
+        try {
+            content = tableLoader.loadTableContent(name);
+        } catch (TableNotFoundException e) {
+            e.printStackTrace();
+        }
         return tableParser.parseTableFromContent(content, name);
     }
 }
