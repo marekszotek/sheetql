@@ -39,11 +39,8 @@ public class QueryRunner {
         Table identityTable = new Table();
 
         return clauses.stream()
-                .reduce(identityTable, ((table, clause) -> {
-                        return clauseExecutor.execute(clause, table);
-                }), (table, table2) -> table2);
+                .reduce(identityTable, ((table, clause) -> clauseExecutor.execute(clause, table)), (table, table2) -> table2);
     }
-
 
     private List<Clause> sortClauses(List<Clause> clauses) {
         return clauses.stream()

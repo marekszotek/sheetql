@@ -5,6 +5,7 @@ import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInsta
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
@@ -27,7 +28,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class GoogleSheetsLoader implements TableLoader {
-    private static final String APPLICATION_NAME = "SoloSheetQL";
+    private static final String APPLICATION_NAME = "SheetQL";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final String TOKENS_DIRECTORY_PATH = "tokens";
 
@@ -37,6 +38,7 @@ public class GoogleSheetsLoader implements TableLoader {
      */
     private static final List<String> SCOPES = Collections.singletonList(SheetsScopes.SPREADSHEETS_READONLY);
     private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
+    private static final String SERVICE_ACCOUNT_FILE_PATH = "/sheetql-29dea33204e9.json";
     private final String worksheetName = "Class Data";
     private TablesRepository tablesRepository;
 
@@ -62,9 +64,9 @@ public class GoogleSheetsLoader implements TableLoader {
      */
     private Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
         // Load client secrets.
-        InputStream in = GoogleSheetsLoader.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
+        InputStream in = GoogleSheetsLoader.class.getResourceAsStream(SERVICE_ACCOUNT_FILE_PATH);
         if (in == null) {
-            throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
+            throw new FileNotFoundException("Resource not found: " + SERVICE_ACCOUNT_FILE_PATH);
         }
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
@@ -81,7 +83,7 @@ public class GoogleSheetsLoader implements TableLoader {
     private ValueRange getResponse(String spreadsheetName) throws IOException, GeneralSecurityException, TableNotFoundException {
         String spreadsheetId = tablesRepository.getSpreadsheetId(spreadsheetName);
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        Sheets service = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+        Sheets service = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getServiceAccountCredentials())
                 .setApplicationName(APPLICATION_NAME)
                 .build();
         return service.spreadsheets().values()
@@ -89,11 +91,20 @@ public class GoogleSheetsLoader implements TableLoader {
                 .execute();
     }
 
-
     private List<String> getSpreadsheetContent(String spreadsheetName) throws IOException, GeneralSecurityException, TableNotFoundException {
         List<List<Object>> values = getResponse(spreadsheetName).getValues();
         return values.stream()
                 .map(Object::toString)
                 .collect(Collectors.toList());
+    }
+
+    private Credential getServiceAccountCredentials() throws IOException {
+        InputStream is = GoogleSheetsLoader.class
+                .getResourceAsStream(SERVICE_ACCOUNT_FILE_PATH);
+
+        Credential credential = GoogleCredential.fromStream(is)
+                .createScoped(SCOPES);
+
+        return credential;
     }
 }

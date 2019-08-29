@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 class ClauseExecutor {
 
-    TablesController tablesController;
+    private TablesController tablesController;
 
     @Autowired
     public ClauseExecutor(TablesController tablesController) {
