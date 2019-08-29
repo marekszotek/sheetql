@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("api/query")
@@ -23,6 +24,10 @@ public class QueryController {
 
     @PostMapping
     public ResponseEntity<Table> runQuery(@RequestBody Query query){
-        return new ResponseEntity<>(queryRunner.getResultTableFromQuery(query.getText()), HttpStatus.OK);
+        try{
+            return new ResponseEntity<>(queryRunner.getResultTableFromQuery(query.getText()), HttpStatus.OK);
+        } catch (RuntimeException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
     }
 }

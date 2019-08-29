@@ -20,7 +20,7 @@ public class TablesController {
         try {
             content = tableLoader.loadTableContent(name);
         } catch (TableNotFoundException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
         return tableParser.parseTableFromContent(content, name);
     }

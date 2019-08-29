@@ -78,7 +78,7 @@ public class GoogleSheetsLoader implements TableLoader {
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 
-    private ValueRange getResponse(String spreadsheetName) throws IOException, GeneralSecurityException {
+    private ValueRange getResponse(String spreadsheetName) throws IOException, GeneralSecurityException, TableNotFoundException {
         String spreadsheetId = tablesRepository.getSpreadsheetId(spreadsheetName);
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         Sheets service = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
@@ -90,7 +90,7 @@ public class GoogleSheetsLoader implements TableLoader {
     }
 
 
-    private List<String> getSpreadsheetContent(String spreadsheetName) throws IOException, GeneralSecurityException {
+    private List<String> getSpreadsheetContent(String spreadsheetName) throws IOException, GeneralSecurityException, TableNotFoundException {
         List<List<Object>> values = getResponse(spreadsheetName).getValues();
         return values.stream()
                 .map(Object::toString)

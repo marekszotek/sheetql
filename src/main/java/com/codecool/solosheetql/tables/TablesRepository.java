@@ -21,7 +21,11 @@ public class TablesRepository {
         return spreadsheetIds;
     }
 
-    String getSpreadsheetId(String spreadsheetName) {
-        return spreadsheetsIds.get(spreadsheetName);
+    String getSpreadsheetId(String spreadsheetName) throws TableNotFoundException {
+        String id = spreadsheetsIds.get(spreadsheetName);
+        if (id == null) {
+            throw new TableNotFoundException("Cannot load google sheet by table name = " + spreadsheetName);
+        }
+        return id;
     }
 }
