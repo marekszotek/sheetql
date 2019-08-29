@@ -5,9 +5,14 @@ import java.util.stream.Collectors;
 
 public class Table {
 
+    private String title;
     private String name;
     private List<String> headers;
     private List<List<String>> records;
+
+    public Table() {
+        title = "DEVOPS TEST";
+    }
 
     public String getName() {
         return name;
