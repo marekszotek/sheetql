@@ -1,5 +1,5 @@
 language: java
-script: "mvn install"
+script: "mvn package"
 
 deploy:
   provider: elasticbeanstalk
@@ -10,6 +10,7 @@ deploy:
   app: "SheetQL-2"
   env: "Sheetql2-env"
   bucket_name: "elasticbeanstalk-us-east-2-509229788800"
+  zip_file: target/solo-sheetql-0.0.1-SNAPSHOT.war
   on:
     branch: deployTest
 
