@@ -5,10 +5,7 @@ import com.codecool.solosheetql.query.QueryParser;
 import com.codecool.solosheetql.tables.Table;
 import org.springframework.stereotype.Controller;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -33,15 +30,32 @@ public class QueryRunner {
     }
 
     public Table getResultTableFromQuery(String query) {
-        List<Clause> clauses = queryParser.parseIntoClauses(query);
-        clauses = sortClauses(clauses);
+//        List<Clause> clauses = queryParser.parseIntoClauses(query);
+//        clauses = sortClauses(clauses);
+//
+//        Table identityTable = new Table();
+//
+//        return clauses.stream()
+//                .reduce(identityTable, ((table, clause) -> {
+//                        return clauseExecutor.execute(clause, table);
+//                }), (table, table2) -> table2);
 
-        Table identityTable = new Table();
+        Table dummyTable = new Table();
 
-        return clauses.stream()
-                .reduce(identityTable, ((table, clause) -> {
-                        return clauseExecutor.execute(clause, table);
-                }), (table, table2) -> table2);
+        List<String> headers = Arrays.asList("id", "name", "age");
+        dummyTable.setHeaders(headers);
+
+        List<List<String>> records = Arrays.asList(
+                Arrays.asList("1", "Jarek", "33"),
+                Arrays.asList("2", "Darek", "22"),
+                Arrays.asList("3", "Marek", "44"),
+                Arrays.asList("4", "Czarek", "11"),
+                Arrays.asList("5", "Arek", "15"),
+                Arrays.asList("6", "Komarek", "51")
+        );
+        dummyTable.setRecords(records);
+
+        return dummyTable;
     }
 
 
