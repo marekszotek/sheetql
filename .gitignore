@@ -32,6 +32,3 @@ build/
 
 ### Google API ###
 tokens/
-
-### Travis CI ###
-.travis.yml
