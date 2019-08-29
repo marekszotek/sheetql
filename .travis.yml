@@ -11,7 +11,7 @@ deploy:
   env: "Sheetql2-env"
   bucket_name: "arn:aws:s3:::elasticbeanstalk-us-east-2-509229788800"
   on:
-    branch: development, travisBuild
+    branch: development
 
 
 after_success:
