@@ -15,8 +15,8 @@ public class TablesController {
         this.tableLoader = tableLoader;
     }
 
-    public Table getTable(String name){
-        String content = tableLoader.loadSpreadsheetContent(name);
+    public Table getTable(String name) throws TableNotFoundException {
+        String content = tableLoader.loadTableContent(name);
         return tableParser.parseTableFromContent(content, name);
     }
 }

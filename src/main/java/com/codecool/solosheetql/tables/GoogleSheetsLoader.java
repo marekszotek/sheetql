@@ -45,14 +45,12 @@ public class GoogleSheetsLoader implements TableLoader {
         this.tablesRepository = tablesRepository;
     }
 
-    public String loadSpreadsheetContent(String spreadsheetName) {
+    public String loadTableContent(String spreadsheetName) throws TableNotFoundException{
         try {
             return String.join("\n", getSpreadsheetContent(spreadsheetName)).replaceAll("\\[|]", "");
         } catch (IOException | GeneralSecurityException e) {
-            System.out.println("Cannot fetch the table " + spreadsheetName);
-            e.printStackTrace();
+            throw new TableNotFoundException("Cannot load google sheet by table name = " + spreadsheetName);
         }
-        return "";
     }
 
     /**

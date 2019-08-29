@@ -3,6 +3,7 @@ package com.codecool.solosheetql.runner;
 import com.codecool.solosheetql.query.Clause;
 import com.codecool.solosheetql.query.QueryParser;
 import com.codecool.solosheetql.tables.Table;
+import com.codecool.solosheetql.tables.TableNotFoundException;
 import org.springframework.stereotype.Controller;
 
 import java.util.Comparator;
@@ -32,14 +33,21 @@ public class QueryRunner {
         return priorities;
     }
 
-    public Table getResultTableFromQuery(String query){
+    public Table getResultTableFromQuery(String query) {
         List<Clause> clauses = queryParser.parseIntoClauses(query);
         clauses = sortClauses(clauses);
 
         Table identityTable = new Table();
 
         return clauses.stream()
-                .reduce(identityTable, ((table, clause) -> clauseExecutor.execute(clause, table)), (table, table2) -> table2);
+                .reduce(identityTable, ((table, clause) -> {
+                    try {
+                        return clauseExecutor.execute(clause, table);
+                    } catch (TableNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    return identityTable;
+                }), (table, table2) -> table2);
     }
 
     private List<Clause> sortClauses(List<Clause> clauses) {
