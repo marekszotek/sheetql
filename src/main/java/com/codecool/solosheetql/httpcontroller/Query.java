@@ -1,4 +1,4 @@
-package com.codecool.solosheetql.http_controller;
+package com.codecool.solosheetql.httpcontroller;
 
 public class Query {
     private String text;

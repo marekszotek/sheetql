@@ -1,4 +1,4 @@
-package com.codecool.solosheetql.http_controller;
+package com.codecool.solosheetql.httpcontroller;
 
 import com.codecool.solosheetql.runner.QueryRunner;
 import com.codecool.solosheetql.tables.Table;
