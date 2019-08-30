@@ -1,27 +1,13 @@
 package com.codecool.solosheetql.tables;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Table {
 
-    private LocalDate date;
     private String name;
     private List<String> headers;
     private List<List<String>> records;
-
-    public Table() {
-        date = LocalDate.now();
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
 
     public String getName() {
         return name;
