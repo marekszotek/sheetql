@@ -8,8 +8,8 @@ deploy:
     secure: $SECRETACCESSKEY
   skip_cleanup: true
   region: "us-east-2"
-  app: "SheetQL-2"
-  env: "Sheetql2-env"
+  app: "SheetQL"
+  env: "Sheetql2-env-test"
   bucket_name: "elasticbeanstalk-us-east-2-509229788800"
   zip_file: target/solo-sheetql-0.0.1-SNAPSHOT.war
   on:

@@ -33,7 +33,6 @@ public class GoogleSheetsLoader implements TableLoader {
      * If modifying these scopes, delete your previously saved tokens/ folder.
      */
     private static final List<String> SCOPES = Collections.singletonList(SheetsScopes.SPREADSHEETS_READONLY);
-    private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
     private static final String SERVICE_ACCOUNT_FILE_PATH = "/google_credentials.json";
     private final String worksheetName = "Class Data";
     private TablesRepository tablesRepository;
