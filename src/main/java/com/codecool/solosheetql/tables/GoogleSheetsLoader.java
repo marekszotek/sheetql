@@ -19,9 +19,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
-//import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
-
 @Service
 public class GoogleSheetsLoader implements TableLoader {
     private static final String APPLICATION_NAME = "SheetQL";
