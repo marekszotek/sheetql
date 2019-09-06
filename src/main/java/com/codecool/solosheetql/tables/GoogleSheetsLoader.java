@@ -34,7 +34,7 @@ public class GoogleSheetsLoader implements TableLoader {
      */
     private static final List<String> SCOPES = Collections.singletonList(SheetsScopes.SPREADSHEETS_READONLY);
     private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
-    private static final String SERVICE_ACCOUNT_FILE_PATH = "/sheetql-29dea33204e9.json";
+    private static final String SERVICE_ACCOUNT_FILE_PATH = "/google_credentials.json";
     private final String worksheetName = "Class Data";
     private TablesRepository tablesRepository;
 
@@ -50,31 +50,6 @@ public class GoogleSheetsLoader implements TableLoader {
             throw new TableNotFoundException("Cannot load google sheet by table name = " + spreadsheetName);
         }
     }
-
-    /**
-     * Creates an authorized Credential object.
-     *
-     * @param HTTP_TRANSPORT The network HTTP Transport.
-     * @return An authorized Credential object.
-     * @throws IOException If the credentials.json file cannot be found.
-     */
-//    private Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
-//        // Load client secrets.
-//        InputStream in = GoogleSheetsLoader.class.getResourceAsStream(SERVICE_ACCOUNT_FILE_PATH);
-//        if (in == null) {
-//            throw new FileNotFoundException("Resource not found: " + SERVICE_ACCOUNT_FILE_PATH);
-//        }
-//        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
-//
-//        // Build flow and trigger user authorization request.
-//        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
-//                HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-//                .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
-//                .setAccessType("offline")
-//                .build();
-//        LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
-//        return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
-//    }
 
     private ValueRange getResponse(String spreadsheetName) throws IOException, GeneralSecurityException, TableNotFoundException {
         String spreadsheetId = tablesRepository.getSpreadsheetId(spreadsheetName);
