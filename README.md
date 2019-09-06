@@ -11,10 +11,11 @@ Google sheets should act as tables.
 ### Example usage:
 
 [Link to the deployed application](http://sheetql.us-east-2.elasticbeanstalk.com/)
-    send a GET request, request body:
-    {
-    	"text": "select * from albums where age = 50;"
-    }
+
+send a GET request, request body:
+{
+    "text": "select * from users where age < 50;"
+}
     
 
 ##### Implemented SQL commands:
