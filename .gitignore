@@ -29,3 +29,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Google API ###
+tokens/
+/src/main/resources/google_credentials.json
